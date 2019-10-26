@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
+import * as UserActions from '../Store/Users/users.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,11 @@ export class UsersStateService {
     this.users$ = this.appStore.select('users');
   }
 
-  getUsers() {
+  getUsers(): Observable<User[]> {
     return this.users$;
+  }
+
+  fetchUsers(): void {
+    this.appStore.dispatch(UserActions.fetchUsers());
   }
 }
